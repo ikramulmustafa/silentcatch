@@ -1,0 +1,35 @@
+name: 'silentcatch'
+description: 'Fail the build when a pull request introduces exception handlers that swallow failures.'
+branding:
+  icon: 'alert-triangle'
+  color: 'orange'
+inputs:
+  paths:
+    description: 'Files or directories to scan when not using diff mode.'
+    required: false
+    default: '.'
+  base:
+    description: 'Base ref for diff mode. Only lines changed since this ref are reported.'
+    required: false
+    default: ''
+  strict:
+    description: 'Also fail on broad handlers that log but do not re-raise.'
+    required: false
+    default: 'false'
+runs:
+  using: 'composite'
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    - name: Install silentcatch
+      shell: bash
+      run: pip install --quiet git+https://github.com/ikramulmustafa/silentcatch.git
+    - name: Run silentcatch
+      shell: bash
+      run: |
+        ARGS="${{ inputs.paths }}"
+        if [ -n "${{ inputs.base }}" ]; then ARGS="$ARGS --base ${{ inputs.base }}"; fi
+        if [ "${{ inputs.strict }}" = "true" ]; then ARGS="$ARGS --strict"; fi
+        silentcatch $ARGS

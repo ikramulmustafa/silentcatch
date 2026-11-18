@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "silentcatch"
+version = "0.1.0"
+description = "Find exception handlers that swallow failures. Built for codebases where agents write code faster than humans review it."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Muhammad Ikram Ul Mustafa" }]
+keywords = ["linter", "static-analysis", "exceptions", "ai", "code-review", "github-action"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Topic :: Software Development :: Quality Assurance",
+]
+
+[project.urls]
+Homepage = "https://github.com/ikramulmustafa/silentcatch"
+Issues = "https://github.com/ikramulmustafa/silentcatch/issues"
+
+[project.scripts]
+silentcatch = "silentcatch.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["silentcatch*"]
