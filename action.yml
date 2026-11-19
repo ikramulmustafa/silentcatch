@@ -25,7 +25,7 @@ runs:
         python-version: '3.12'
     - name: Install silentcatch
       shell: bash
-      run: pip install --quiet git+https://github.com/ikramulmustafa/silentcatch.git
+      run: pip install --quiet "silentcatch==0.1.1"
     - name: Run silentcatch
       shell: bash
       run: |
